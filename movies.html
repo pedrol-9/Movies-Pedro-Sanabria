@@ -13,24 +13,19 @@
             -color3: #FFFFFF;
             -color4: #000000;
         }
-
-        main div .card {
-            box-shadow: 2px 3px 5px 5px var(-color2);
-        }
     </style>
     <title>Movies</title>
 </head>
 
 <body class="flex flex-wrap">
-    <header
-        class="grow-0 w-full flex flex-col items-center justify-between bg-[#6D38E0]  lg:flex-row lg:justify-around">
+    <header class="grow-0 w-full flex flex-col items-center justify-between bg-[#6D38E0] lg:flex-row lg:justify-around">
         <div class="flex items-center m-4">
             <img class="w-[90px] h-[85px] rounded-[50%] object-cover bg-[#FFFFFF] mr-2"
                 src="./Recursos Moviestack/Moviestack_isotipo.png" alt="logotipo de moviestack">
-            <h1 class="font-extrabold text-[#FFFFFF] pr-2 text-4xl">MOVIESTACK</h1>
+            <h1 class="font-extrabold text-[#FFFFFF] pr-2 text-4xl md:text-6xl">MOVIESTACK</h1>
         </div>
         <nav
-            class="text-sm text-[#6D38E0] flex flex-wrap justify-center items-center text-center w-full py-3 gap-3 md:justify-center md:w-1/2 lg:justify-end lg:w-1/2">
+            class="text-sm text-[#6D38E0] flex flex-wrap justify-center items-center text-center w-full py-3 gap-3 mb-4 lg:mb-0 md:justify-center md:w-1/2 lg:justify-end lg:w-1/2">
             <a class="anchor w-[30%] bg-[#d2ccff] p-1 rounded font-extrabold lg:w-[20%] shadow-[2px_2px_4px_2px_#d2ccff] hover:shadow-[2px_2px_4px_2px_#000000]"
                 href="./home.html">HOME
             </a>
@@ -42,21 +37,37 @@
             </a>
         </nav>
     </header>
-    <main class="grow bg-[#FFFFFF] md:flex md:flex-wrap md:justify-center">
-        <article>
-            <h1 class="bg-[#6D38E0] text-[#FFFFFF] p-4 text-center font-extrabold text-3xl mt-3 mb-8">MOVIES</h1>
-            <div class="card-container flex flex-wrap gap-4 justify-center">
+    <main class="grow bg-[#FFFFFF] md:flex md:flex-wrap md:justify-center w-full">
+        <section id="main-section" class="w-full">
+            <h1
+                class="bg-[#6D38E0] text-[#FFFFFF] p-4 text-center font-extrabold text-3xl md:text-4xl mt-3 mb-8 w-full">
+                MOVIES</h1>
+            <div id="filters"
+                class="flex flex-wrap justify-center bg-[#6D38E0] mb-12 md:flex md:flex-wrap md:justify-around md:items-center">
+                <label id="movieFilter" class="flex justify-center p-2 w-full rounded-md m-4 md:w-[50%]">
+                    <input class="bg-[#d2ccff] w-[90%] rounded-md h-[2rem] xl:h-[2.7rem] text-center" type="text"
+                        name="movie" id="searchInput" placeholder="Write down a title">
+                </label>
+            </div>
+
+            <div class="card-container flex flex-wrap gap-4 justify-center w-full">
 
             </div>
-        </article>
+        </section>
     </main>
     <footer class="grow-0 w-full text-center bg-[#6D38E0] text-[#FFFFFF] font-bold py-4 mt-8">
         <p>MindHub - Cohort N° 54 - Pedro Sanabria
         </p>
     </footer>
 
+    <!-- <style>
+        * {
+            border: 1px solid red;
+        }
+    </style> -->
+
     <script src="./moviestack.js"></script>
-    <script src="./movies.js"></script>
+    <script type="module" src="./movies.js"></script>
 </body>
 
 </html>
