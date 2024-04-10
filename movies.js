@@ -1,7 +1,7 @@
 const cardContainer = document.querySelector(".card-container");
 let fragment = new DocumentFragment();
 
-let cardContent = object => {
+/* let cardContent = object => {
     return `
         <img class="mb-4 md:max-h-[55%] " src="${object.image}" alt="${object.title}" style="box-shadow: 1px 1px 3px white;">
         <div class="relative">
@@ -12,9 +12,9 @@ let cardContent = object => {
             <a href="./details.html?id=${object.id}" id="button" target="_blank" class="rounded-2xl border border-white border-solid px-2 absolute -bottom-2 -right-2 bg-[#FFFFFF] hover:bg-black hover:text-white text-[#6D38E0] font-bold">See more</a>
         </div>
     `
-}
-
-// import functions, { cardContent } from './function.js'
+} */
+import { movies } from './moviestack.js'
+import { cardContent } from './function.js'
 
 let createCards = array => array.forEach(element => {
     let divCard = document.createElement("div");
@@ -26,10 +26,10 @@ let createCards = array => array.forEach(element => {
     return divCard;
 });
 
-// import functions, { createCards } from './function.js'
+// import { createCards } from './function.js'
 
 let cards = createCards(movies);
-console.log(cards);
+// console.log(cards);
 // console.log(cardContainer);
 
 
@@ -84,14 +84,16 @@ let createFilteredCards = array => {
     replaceMainContent(filteredCardsContainer);
 }
 
+
 selectElement.addEventListener("change", event => {
-    console.log(event); // objeto con el evento.
-    console.log(event.target.value); // objeto con el evento.
+    // console.log(event); // objeto con el evento.
+    // console.log(event.target.value); // objeto con el evento.
     let selectedGenre = event.target.value;
     let filterMoviesByGenre = array => array.filter(movie => movie.genres.includes(selectedGenre)); // este array me sirve para generar las cards con las películas que contengan el genre seleccionado.
-    let filteredMovies = filterMoviesByGenre(genres); // o movies, son iguales
-    console.log(filteredMovies) // me imprime un array filtrado con los objetos que contengan el genre seleccionado.
-    let renderFilterCards = createFilteredCards(filteredMovies); // se contiene el nodo recién creado.
+    // let filteredMoviesBySelect = filterMovies(searchInput.value, selectElement);
+    let filteredMoviesBySelect = filterMoviesByGenre(genres); // o movies, son iguales
+    console.log(filteredMoviesBySelect) // me imprime un array filtrado con los objetos que contengan el genre seleccionado.
+    let renderFilterCards = createFilteredCards(filteredMoviesBySelect); // se contiene el nodo recién creado.
     // console.log(renderFilterCards);
     // console.log("desde cards filtradas");
 
@@ -105,13 +107,15 @@ searchInput.addEventListener("keyup", event => {
     // console.log(event.target.value);
     let inputValue = searchInput.value.toLowerCase().trim();
     // console.log(inputValue); 
+    // let filteredMovieByText = filterMovies(inputValue, selectElement.value);
     let titles = (array, input) => array.filter(element => element.title.toLowerCase().trim().includes(input)); // array con sus generos, quiere decir que todos los objetos del arreglo movies tienen genres.
     console.log(titles); // debe imprimir las peliculas con similitudes al input.
 
-    let filteredMovies = titles(movies, inputValue);
-    console.log(filteredMovies); // arreglo con los objetos que presentan similitudes entre el input y el title.
+    let filteredMovieByText = titles(movies, inputValue);
 
-    if (filteredMovies.length === 0) {
+    console.log(filteredMovieByText); // arreglo con los objetos que presentan similitudes entre el input y el title.
+
+    if (filteredMovieByText.length === 0) {
         // console.log("movie not found!");
         let h4 = document.createElement("h4");
         let sadFaceCode = "&#x1F61E;";
@@ -120,12 +124,51 @@ searchInput.addEventListener("keyup", event => {
         // cardContainer.appendChild(h4);
         replaceMainContent(h4);
         return h4;
+    } else if (filteredMovieByText = " ") {
+        createCards(movies);
     }
 
     // crear cards con el arreglo filtrado.
-    let renderFilterCards = createFilteredCards(filteredMovies);
+    let renderFilterCards = createFilteredCards(filteredMovieByText);
     console.log(renderFilterCards); // funcionando perfectamente hasta aquí.
 })
 
+/* let filterMovies = (array) => {
+    // array.filter
+    let inputValue;
+    let selectedGenre;
+    let filteredMoviesByText;
+    let filteredMoviesBySelect;
+    let filteredMovies = [];
 
+    searchInput.addEventListener("keyup", event => {
+        inputValue = searchInput.value.toLowerCase().trim();
+    })
+
+    selectElement.addEventListener("change", event => {
+        selectedGenre = event.target.value;
+    })
+
+    array.filter(element => element.title.toLowerCase().trim().includes(input)).filter(movie => movie.genres.includes(selectedGenre));
+
+
+    if (inputValue) {
+        filteredMovies = filteredMovies.filter(movie =>
+            movie.title.toLowerCase().includes(inputValue.toLowerCase())
+        );
+        filteredMoviesByText = array.filter(element => element.title.toLowerCase().trim().includes(input)).filter(movie => movie.genres.includes(selectedGenre));
+        filteredMovies = [...filteredMoviesBySelect, ...filteredMoviesByText];
+    } else if (selectedGenre !== '') {
+        filteredMovies = filteredMovies.filter(movie =>
+            movie.genres.includes(selectedGenre)
+        );
+        filteredMoviesBySelect = array.filter(movie => movie.genres.includes(selectedGenre));
+        filteredMovies = [...filteredMoviesByText, ...filteredMoviesBySelect];
+    }
+
+    return filteredMovies;
+}
+
+
+filterMovies(movies); */
 

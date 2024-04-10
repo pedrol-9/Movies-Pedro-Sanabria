@@ -1,4 +1,4 @@
-let cardContent = object => {
+export let cardContent = object => {
     return `
         <img class="mb-4 md:max-h-[55%] " src="${object.image}" alt="${object.title}" style="box-shadow: 1px 1px 3px white;">
         <div class="relative">
@@ -11,19 +11,19 @@ let cardContent = object => {
     `
 }
 
-let createCards = array => array.forEach(element => {
+/* export let createCards = (array, container) => array.forEach(element => {
     let divCard = document.createElement("div");
+    let fragment = new DocumentFragment();
     divCard.className = "card flex flex-col gap-3 border-solid border rounded-2xl shadow-[2px_2px_6px_#000000] shadow-[2px_2px_6px_#000000] hover:shadow-[0px_2px_10px_5px_#6D38E0] hover:border-none p-4 w-[90vw] justify-center bg-[#6D38E0] text-[#FFFFFF] md:w-[45vw] md:justify-between lg:w-[31vw] xl:w-[22vw]";
     // divCard.style = "box-shadow: 2px 2px 6px black;"
-    divCard.innerHTML = functions.cardContent(element);
+    divCard.innerHTML = cardContent(element);
     fragment.appendChild(divCard); // se usa el fragment y queda vacío.
     cardContainer.appendChild(fragment);
     return divCard;
-});
+}); */
 
-export default {
+/* export default {
     cardContent,
     createCards,
-}
-
+} */
 
