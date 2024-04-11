@@ -11,19 +11,82 @@ export let cardContent = object => {
     `
 }
 
-/* export let createCards = (array, container) => array.forEach(element => {
-    let divCard = document.createElement("div");
+export let createCards = movies => movies.forEach(movie => {
     let fragment = new DocumentFragment();
+    let divCard = document.createElement("div");
+    const cardContainer = document.querySelector(".card-container");
     divCard.className = "card flex flex-col gap-3 border-solid border rounded-2xl shadow-[2px_2px_6px_#000000] shadow-[2px_2px_6px_#000000] hover:shadow-[0px_2px_10px_5px_#6D38E0] hover:border-none p-4 w-[90vw] justify-center bg-[#6D38E0] text-[#FFFFFF] md:w-[45vw] md:justify-between lg:w-[31vw] xl:w-[22vw]";
     // divCard.style = "box-shadow: 2px 2px 6px black;"
-    divCard.innerHTML = cardContent(element);
+    divCard.innerHTML = cardContent(movie);
     fragment.appendChild(divCard); // se usa el fragment y queda vacío.
     cardContainer.appendChild(fragment);
     return divCard;
-}); */
+});
 
-/* export default {
-    cardContent,
-    createCards,
-} */
+export let genresFiltering = movies => Array.from(new Set(movies.map(movie => movie.genres).flat()));
 
+export let createSelectElement = movies => {
+    let mainSection = document.getElementById("main-section");
+    let select = document.createElement("select");
+    let filtersSection = document.getElementById("filters");
+    select.innerHTML = `
+        <option selected value="choose-movie">Choose movie genre</option>
+    `;
+    select.className = "w-2/3 rounded-md h-[2rem] text-center bg-[#d2ccff] italic m-4 md:w-[30%] xl:h-[2.7rem]";
+    select.name = "genres";
+    select.id = "select-genre";
+    movies.forEach(element => {
+        let option = document.createElement("option");
+        option.value = element;
+        option.innerText = element;
+        select.appendChild(option);
+    })
+    filtersSection.appendChild(select);
+    return select;
+}
+
+export let replaceMainContent = (nodo, container) => {
+    container = document.querySelector(".card-container");
+    if (container.hasChildNodes) {
+        container.replaceChildren(nodo); // y si encuentra hijos en el main, le digo que lo reemplace por el nuevo container.
+    }
+}
+
+export let createFilteredCards = (movies, container) => {
+    let filteredCardsContainer = document.createElement("div"); // creo un contenedor para las nuevas cards filtradas.
+    filteredCardsContainer.className = "card-container flex flex-wrap gap-4 justify-center"; // le creo también las mismas clases del contenedor en el html para que se ajuste igual.
+    movies.forEach(element => {
+        let divFilteredCard = document.createElement("div");
+        divFilteredCard.className = "card flex flex-col gap-3 border-solid border rounded-2xl shadow-[2px_2px_6px_#000000] shadow-[2px_2px_6px_#000000] hover:shadow-[0px_2px_10px_5px_#6D38E0] hover:border-none p-4 w-[90vw] justify-center bg-[#6D38E0] text-[#FFFFFF] md:w-[45vw] md:justify-between lg:w-[31vw] xl:w-[22vw]";
+        // divFilteredCard.style = "box-shadow: 2px 2px 6px black;";
+        divFilteredCard.innerHTML = cardContent(element);
+        filteredCardsContainer.appendChild(divFilteredCard); // inserto las cards dentro del contenedor recién creado
+    })
+
+    replaceMainContent(filteredCardsContainer, container);
+}
+
+export let filterMoviesByGenre = (movies, input) => movies.filter(movie => movie.genres.includes(input));
+
+export let filterMoviesByTitles = (movies, input) => movies.filter(element => element.title.toLowerCase().trim().includes(input));
+
+export function crossedFilter(movies, inputText, inputSelect, container) {
+    let moviesByText = filterMoviesByTitles(movies, inputText);
+    let crossedFilter = filterMoviesByGenre(moviesByText, inputSelect);
+
+
+    if (crossedFilter.length === 0) {
+        if (inputSelect == "choose-movie") {
+            createFilteredCards(movies, container);
+        } else {
+            let h4 = document.createElement("h4");
+            let sadFaceCode = "&#x1F61E;";
+            h4.className = "text-2xl text-bold";
+            h4.innerHTML = `${sadFaceCode} We're sorry! we don't have this title, please try another entry`;
+            // cardContainer.appendChild(h4);
+            replaceMainContent(h4, container);
+            return h4;
+        }
+    }
+    return crossedFilter;
+}
