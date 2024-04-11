@@ -41,6 +41,7 @@ selectElement.addEventListener("change", event => {
 searchInput.addEventListener("keyup", event => {
     inputValue = event.target.value.toLowerCase().trim();
     filteredMoviesByText = filterMoviesByTitles(movies, inputValue);
+    createFilteredCards(crossedFilter(filteredMoviesByText, inputValue, selectedGenre), cardContainer);
 
     if (filteredMoviesByText.length == 0) {
         let h4 = document.createElement("h4");
@@ -50,8 +51,6 @@ searchInput.addEventListener("keyup", event => {
         replaceMainContent(h4, cardContainer);
         return h4;
     }
-
-    createFilteredCards(filteredMoviesByText, cardContainer);
 })
 
 
