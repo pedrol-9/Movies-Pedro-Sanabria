@@ -74,10 +74,19 @@ export function crossedFilter(movies, inputText, inputSelect, container) {
     let moviesByText = filterMoviesByTitles(movies, inputText);
     let crossedFilter = filterMoviesByGenre(moviesByText, inputSelect);
 
+    /* if (inputSelect.value === "choose-movie") {
+        if (inputText.trim() == "") {
+            createFilteredCards(movies, container)
+        } else if (inputText) {
+            createFilteredCards(moviesByText, container);
+        }
+    } */
+
 
     if (crossedFilter.length === 0) {
         if (inputSelect == "choose-movie") {
             createFilteredCards(movies, container);
+            createFilteredCards(crossedFilter(movies, inputValue, selectedGenre), container);
         } else {
             let h4 = document.createElement("h4");
             let sadFaceCode = "&#x1F61E;";

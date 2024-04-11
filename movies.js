@@ -3,6 +3,7 @@ let fragment = new DocumentFragment();
 let cardContainer = document.querySelector(".card-container");
 let searchInput = document.getElementById("searchInput");
 let mainSection = document.getElementById("main-section");
+let allMovieOptions;
 let selectedGenre = "";
 let inputValue = "";
 let genres = movies.filter(movie => movie.genres);
@@ -24,26 +25,43 @@ import { filterMoviesByTitles } from './function.js'
 import { crossedFilter } from './function.js'
 
 // ********************* Crear filtros por género **********
+let combinedArray
 // evento del input tipo select
 selectElement.addEventListener("change", event => {
     selectedGenre = event.target.value;
-    console.log(selectedGenre);
+    // console.log(selectedGenre);
+    // allMovieOption = document.querySelector('[value="choose-movie"]')
+    // console.log = (allMovieOptions);
     filteredMoviesBySelect = filterMoviesByGenre(movies, selectedGenre);
-    if (selectedGenre == "choose-movie") {
-        createFilteredCards(movies, cardContainer);
+
+    if (selectElement.value === "choose-movie") {
+        if (selectElement.trim() == "") {
+            createFilteredCards(movies, cardContainer)
+        } else if (inputText) {
+            createFilteredCards(filteredMoviesByText, cardContainer);
+        }
+    }
+
+    /* if (selectedGenre == allMovieOptions) {
+        // createFilteredCards(movies, cardContainer);
+        createFilteredCards(crossedFilter(movies, inputValue, selectedGenre), cardContainer);
     } else if (filteredMoviesBySelect !== 0) {
         filteredMoviesBySelect = filterMoviesByGenre(movies, selectedGenre);
         createFilteredCards(crossedFilter(movies, inputValue, selectedGenre), cardContainer);
-    };
+    }; */
 })
 
 // evento del input tipo texto
 searchInput.addEventListener("keyup", event => {
     inputValue = event.target.value.toLowerCase().trim();
     filteredMoviesByText = filterMoviesByTitles(movies, inputValue);
+    // createFilteredCards(crossedFilter(filteredMoviesByText, inputValue, selectedGenre), cardContainer);
     createFilteredCards(crossedFilter(filteredMoviesByText, inputValue, selectedGenre), cardContainer);
 
-    if (filteredMoviesByText.length == 0) {
+    if (selectedGenre == "choose-movie") {
+        // createFilteredCards(movies, cardContainer);
+        createFilteredCards(crossedFilter(movies, inputValue, selectedGenre), cardContainer);
+    } else if (filteredMoviesByText.length == 0) {
         let h4 = document.createElement("h4");
         let sadFaceCode = "&#x1F61E;";
         h4.className = "text-2xl text-bold";
@@ -51,6 +69,11 @@ searchInput.addEventListener("keyup", event => {
         replaceMainContent(h4, cardContainer);
         return h4;
     }
+
+    /*  if (selectedGenre == "choose-movie") {
+         // createFilteredCards(movies, cardContainer);
+         createFilteredCards(crossedFilter(movies, inputValue, selectedGenre), cardContainer);
+     } */
 })
 
 
