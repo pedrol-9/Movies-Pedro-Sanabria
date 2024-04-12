@@ -1,12 +1,13 @@
 export let cardContent = object => {
     return `
-        <img class="mb-4 md:max-h-[55%] " src="${object.image}" alt="${object.title}" style="box-shadow: 1px 1px 3px white;">
+        <img class="mb-4 md:max-h-[55%]" src="https://moviestack.onrender.com/static/${object.image}" alt="${object.title}" style="box-shadow: 1px 1px 3px white;">
         <div class="relative">
             <h3><span class="font-bold">Title:</span> ${object.title}</h3>
             <h5 class="italic">${object.tagline}</h5>
             <hr class="my-4">
             <p class="md:line-clamp-5 mb-8 xl:line-clamp-3"><span class="font-bold">Review: </span>${object.overview}</p>
             <a href="./details.html?id=${object.id}" id="button" target="_blank" class="rounded-2xl border border-white border-solid px-2 absolute -bottom-2 -right-2 bg-[#FFFFFF] hover:bg-black hover:text-white text-[#6D38E0] font-bold">See more</a>
+            <i class="fa fa-heart text-red-500"></i>
         </div>
     `
 }
@@ -25,24 +26,18 @@ export let createCards = movies => movies.forEach(movie => {
 
 export let genresFiltering = movies => Array.from(new Set(movies.map(movie => movie.genres).flat()));
 
-export let createSelectElement = movies => {
+export let createSelectElement = genres => {
     let mainSection = document.getElementById("main-section");
-    let select = document.createElement("select");
+    let selectElement = document.getElementById("select-genres");    
     let filtersSection = document.getElementById("filters");
-    select.innerHTML = `
-        <option selected value="choose-movie">Choose movie genre</option>
-    `;
-    select.className = "w-2/3 rounded-md h-[2rem] text-center bg-[#d2ccff] italic m-4 md:w-[30%] xl:h-[2.7rem]";
-    select.name = "genres";
-    select.id = "select-genre";
-    movies.forEach(element => {
+    genres.forEach(genre => {
         let option = document.createElement("option");
-        option.value = element;
-        option.innerText = element;
-        select.appendChild(option);
+        option.value = genre;
+        option.innerText = genre;
+        selectElement.appendChild(option);
     })
-    filtersSection.appendChild(select);
-    return select;
+    
+    return selectElement;
 }
 
 export let replaceMainContent = (nodo, container) => {
@@ -55,6 +50,21 @@ export let replaceMainContent = (nodo, container) => {
 export let createFilteredCards = (movies, container) => {
     let filteredCardsContainer = document.createElement("div"); // creo un contenedor para las nuevas cards filtradas.
     filteredCardsContainer.className = "card-container flex flex-wrap gap-4 justify-center"; // le creo también las mismas clases del contenedor en el html para que se ajuste igual.
+    movies.forEach(movie => {
+        let divFilteredCard = document.createElement("div");
+        divFilteredCard.className = "card flex flex-col gap-3 border-solid border rounded-2xl shadow-[2px_2px_6px_#000000] shadow-[2px_2px_6px_#000000] hover:shadow-[0px_2px_10px_5px_#6D38E0] hover:border-none p-4 w-[90vw] justify-center bg-[#6D38E0] text-[#FFFFFF] md:w-[45vw] md:justify-between lg:w-[31vw] xl:w-[22vw]";
+        // divFilteredCard.style = "box-shadow: 2px 2px 6px black;";
+        divFilteredCard.innerHTML = cardContent(movie);
+        filteredCardsContainer.appendChild(divFilteredCard); // inserto las cards dentro del contenedor recién creado
+    })
+
+    replaceMainContent(filteredCardsContainer, container);
+    return filteredCardsContainer;
+}
+
+/* export let createFilteredCards = (movies, container) => {
+    let filteredCardsContainer = document.createElement("div"); // creo un contenedor para las nuevas cards filtradas.
+    filteredCardsContainer.className = "card-container flex flex-wrap gap-4 justify-center"; // le creo también las mismas clases del contenedor en el html para que se ajuste igual.
     movies.forEach(element => {
         let divFilteredCard = document.createElement("div");
         divFilteredCard.className = "card flex flex-col gap-3 border-solid border rounded-2xl shadow-[2px_2px_6px_#000000] shadow-[2px_2px_6px_#000000] hover:shadow-[0px_2px_10px_5px_#6D38E0] hover:border-none p-4 w-[90vw] justify-center bg-[#6D38E0] text-[#FFFFFF] md:w-[45vw] md:justify-between lg:w-[31vw] xl:w-[22vw]";
@@ -62,13 +72,13 @@ export let createFilteredCards = (movies, container) => {
         divFilteredCard.innerHTML = cardContent(element);
         filteredCardsContainer.appendChild(divFilteredCard); // inserto las cards dentro del contenedor recién creado
     })
-
     replaceMainContent(filteredCardsContainer, container);
-}
+} */
+
 
 export let filterMoviesByGenre = (movies, input) => movies.filter(movie => movie.genres.includes(input));
 
-export let filterMoviesByTitles = (movies, input) => movies.filter(element => element.title.toLowerCase().trim().includes(input));
+export let filterMoviesByTitles = (movies, option) => movies.filter(element => element.title.toLowerCase().trim().includes(option));
 
 export function crossedFilter(movies, inputText, inputSelect, container) {
     let moviesByText = filterMoviesByTitles(movies, inputText);
@@ -76,7 +86,7 @@ export function crossedFilter(movies, inputText, inputSelect, container) {
 
 
     if (crossedFilter.length === 0) {
-        if (inputSelect == "choose-movie") {
+        if (inputSelect == "all-movies") {
             createFilteredCards(movies, container);
         } else {
             let h4 = document.createElement("h4");
@@ -90,3 +100,4 @@ export function crossedFilter(movies, inputText, inputSelect, container) {
     }
     return crossedFilter;
 }
+

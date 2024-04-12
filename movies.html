@@ -44,10 +44,14 @@
                 MOVIES</h1>
             <div id="filters"
                 class="flex flex-wrap justify-center bg-[#6D38E0] mb-12 md:flex md:flex-wrap md:justify-around md:items-center">
-                <label id="movieFilter" class="flex justify-center p-2 w-full rounded-md m-4 md:w-[50%]">
-                    <input class="bg-[#d2ccff] w-[90%] rounded-md h-[2rem] xl:h-[2.7rem] text-center" type="text"
-                        name="movie" id="searchInput" placeholder="Write down a title">
+                <label class="flex justify-center p-2 w-full rounded-md m-4 md:w-[50%]">
+                    <input id="searchInput" class="bg-[#d2ccff] w-[90%] rounded-md h-[2rem] xl:h-[2.7rem] text-center" type="search"
+                        name="movie" placeholder="Write down a title">
                 </label>
+
+                <select id="select-genres" class="w-2/3 rounded-md h-[2rem] text-center bg-[#d2ccff] italic m-4 md:w-[30%] xl:h-[2.7rem]" name="genres" >
+                    <option selected value="all-movies">All Movies</option>
+                </select>
             </div>
 
             <div class="card-container flex flex-wrap gap-4 justify-center w-full">
@@ -67,7 +71,7 @@
     </style> -->
 
     <script type="module" src="./movies.js"></script>
-    <script type="module" src="./moviestack.js"></script>
+    <!-- <script type="module" src="./moviestack.js"></script> -->
 </body>
 
 </html>
