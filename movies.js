@@ -1,18 +1,3 @@
-// let divCard = document.createElement("div");
-// let fragment = new DocumentFragment();
-// let mainSection = document.getElementById("main-section");
-// let selectedGenre = "";
-// let inputValue = "";
-// let genres = movies.filter(movie => movie.genres);
-// let genres = moviesAPI.filter(movie => movie.genres);
-// let genresFiltered = genresFiltering(genres);
-// let selectElement = createSelectElement(genresFiltered);
-// let cardContainerDefaultContent = createCards(movies);
-// let filteredMoviesBySelect;
-// let filteredMoviesByText;
-
-// import { movies } from './moviestack.js'
-// import { cardContent } from './function.js'
 import { createCards } from './function.js'
 import { genresFiltering } from './function.js'
 import { createSelectElement } from './function.js'
@@ -21,36 +6,6 @@ import { createFilteredCards } from './function.js'
 import { filterMoviesByGenre } from './function.js'
 import { filterMoviesByTitles } from './function.js'
 import { crossedFilter } from './function.js'
-
-// ********************* Crear filtros por género **********
-// evento del input tipo select
-/* selectElement.addEventListener("change", event => {
-    selectedGenre = event.target.value;
-    console.log(selectedGenre);
-    filteredMoviesBySelect = filterMoviesByGenre(movies, selectedGenre);
-    if (selectedGenre == "choose-movie") {
-        createFilteredCards(movies, cardContainer);
-    } else if (filteredMoviesBySelect !== 0) {
-        filteredMoviesBySelect = filterMoviesByGenre(movies, selectedGenre);
-        createFilteredCards(crossedFilter(movies, inputValue, selectedGenre), cardContainer);
-    };
-})
-
-// evento del input tipo texto
-searchInput.addEventListener("keyup", event => {
-    inputValue = event.target.value.toLowerCase().trim();
-    filteredMoviesByText = filterMoviesByTitles(movies, inputValue);
-    createFilteredCards(crossedFilter(filteredMoviesByText, inputValue, selectedGenre), cardContainer);
-
-    if (filteredMoviesByText.length == 0) {
-        let h4 = document.createElement("h4");
-        let sadFaceCode = "&#x1F61E;";
-        h4.className = "text-2xl text-bold";
-        h4.innerHTML = `${sadFaceCode} We're sorry! we don't have this title, please try another entry`;
-        replaceMainContent(h4, cardContainer);
-        return h4;
-    }
-}) */
 
 //  ************* obetener array de API - sprint-3
 let moviesAPI = [];
@@ -64,8 +19,8 @@ let filteredMoviesBySelect;
 let filteredMoviesByText;
 let selectedGenre = "";
 let inputValue = "";
-
 console.log([$searchInput]);
+
 
 fetch ('https://moviestack.onrender.com/api/movies', {
     headers: {
@@ -110,6 +65,7 @@ fetch ('https://moviestack.onrender.com/api/movies', {
                 // createFilteredCards(filteredMoviesBySelect, cardContainer);
                 createFilteredCards(crossedFilter(filteredMoviesBySelect, inputValue, selectedGenre, cardContainer), cardContainer)
             }
+            // replaceHeart();
         })
 
         // 4 Paso: capturar el searchInput
@@ -127,12 +83,59 @@ fetch ('https://moviestack.onrender.com/api/movies', {
                 replaceMainContent(h4, cardContainer);
                 return h4;
             }
+
+            // replaceHeart();
         })
 
     }).catch(err => console.log(err)) 
  
 // console.log(moviesAPI);
 
+let favList = [];
+let favListLS = JSON.parse(localStorage.getItem('favList'));
+
+if (favListLS) {
+    favList = favListLS;
+}
+
+cardContainer.addEventListener('click', event => {
+    // console.log(event);
+    let favId = event.target.dataset.fav; 
+    // console.log([favId]);
+    let heartcito = event.target;
+    // console.log([heartcito])
+    
+    if (favId) {
+        // console.log(favId);
+        if (!favList.includes(favId)) {
+            heartcito.src = "../assets/filled-heart.png";
+            favList.push(favId);
+            // console.log(heartcito)
+        } else {
+            favList = favList.filter(id => id != favId);
+            heartcito.src = "../assets/heart.png";
+            // console.log(heartcito)
+        }
+        
+        localStorage.setItem('favList', JSON.stringify(favList)) // sobreescribe el array almacenado en la consola con la información dentro del array acá.
+    }
+
+    
+
+    console.log(favList);
+})
+
+// Función para actualizar los íconos de favoritos
+/* function replaceHeart () {
+    // Cargar estado de favoritos después de renderizar las tarjetas filtradas o de búsqueda
+    favList.forEach(id => {
+        const button = document.querySelector(`button[data-fa="${id}"]`);
+        if (button) {
+            const heartIcon = button.querySelector('img');
+            heartIcon.src = '../assets/filled-heart.png';
+        }
+    });
+} */
 
 
 /* function changeOption (event) {

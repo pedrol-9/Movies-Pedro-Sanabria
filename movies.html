@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./Recursos Moviestack/Moviestack_favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/Moviestack_favicon.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
@@ -17,11 +17,11 @@
     <title>Movies</title>
 </head>
 
-<body class="flex flex-wrap">
-    <header class="grow-0 w-full flex flex-col items-center justify-between bg-[#6D38E0] lg:flex-row lg:justify-around">
+<body class="flex flex-wrap min-h-screen">
+    <header class="w-full flex flex-col items-center justify-between bg-[#6D38E0] lg:flex-row lg:justify-around">
         <div class="flex items-center m-4">
             <img class="w-[90px] h-[85px] rounded-[50%] object-cover bg-[#FFFFFF] mr-2"
-                src="./Recursos Moviestack/Moviestack_isotipo.png" alt="logotipo de moviestack">
+                src="./assets/Moviestack_isotipo.png" alt="logotipo de moviestack">
             <h1 class="font-extrabold text-[#FFFFFF] pr-2 text-4xl md:text-6xl">MOVIESTACK</h1>
         </div>
         <nav
@@ -33,11 +33,11 @@
                 href="./movies.html">MOVIES
             </a>
             <a class="anchor w-[30%] bg-[#d2ccff] p-1 rounded font-extrabold lg:w-[20%] shadow-[2px_2px_4px_2px_#d2ccff] hover:shadow-[2px_2px_4px_2px_#000000]"
-                href="#">FAVS
+                href="./favorites.html">FAVS
             </a>
         </nav>
     </header>
-    <main class="grow bg-[#FFFFFF] md:flex md:flex-wrap md:justify-center w-full">
+    <main class="grow min-h-[80vh] bg-[#FFFFFF] md:flex md:flex-wrap md:justify-center w-full">
         <section id="main-section" class="w-full">
             <h1
                 class="bg-[#6D38E0] text-[#FFFFFF] p-4 text-center font-extrabold text-3xl md:text-4xl mt-3 mb-8 w-full">
@@ -52,6 +52,11 @@
                 <select id="select-genres" class="w-2/3 rounded-md h-[2rem] text-center bg-[#d2ccff] italic m-4 md:w-[30%] xl:h-[2.7rem]" name="genres" >
                     <option selected value="all-movies">All Movies</option>
                 </select>
+
+                <!-- <div data-clear="true">
+                    <h5 data-clear="true">FAVS LIST MANAGER</h5>
+                    <button data-clear="true"></button>
+                </div> -->
             </div>
 
             <div class="card-container flex flex-wrap gap-4 justify-center w-full">
@@ -59,7 +64,7 @@
             </div>
         </section>
     </main>
-    <footer class="grow-0 w-full text-center bg-[#6D38E0] text-[#FFFFFF] font-bold py-4 mt-8">
+    <footer class="w-full text-center bg-[#6D38E0] text-[#FFFFFF] font-bold py-4 mt-8">
         <p>MindHub - Cohort N° 54 - Pedro Sanabria
         </p>
     </footer>

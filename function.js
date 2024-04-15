@@ -1,16 +1,45 @@
-export let cardContent = object => {
+export let cardContent = movie => {
     return `
-        <img class="mb-4 md:max-h-[55%]" src="https://moviestack.onrender.com/static/${object.image}" alt="${object.title}" style="box-shadow: 1px 1px 3px white;">
+        <img class="mb-4 md:max-h-[55%]" src="https://moviestack.onrender.com/static/${movie.image}" alt="${movie.title}" style="box-shadow: 1px 1px 3px white;" >
         <div class="relative">
-            <h3><span class="font-bold">Title:</span> ${object.title}</h3>
-            <h5 class="italic">${object.tagline}</h5>
+            <button data-fav=${movie.id}">
+            <img src="../assets/heart.png" class="absolute -top-4 right-0 w-10 h-10" data-fav="${movie.id}"/>
+            </button>
+            <h3><span class="font-bold">Title:</span> ${movie.title}</h3>
+            <h5 class="italic">${movie.tagline}</h5>
             <hr class="my-4">
-            <p class="md:line-clamp-5 mb-8 xl:line-clamp-3"><span class="font-bold">Review: </span>${object.overview}</p>
-            <a href="./details.html?id=${object.id}" id="button" target="_blank" class="rounded-2xl border border-white border-solid px-2 absolute -bottom-2 -right-2 bg-[#FFFFFF] hover:bg-black hover:text-white text-[#6D38E0] font-bold">See more</a>
-            <i class="fa fa-heart text-red-500"></i>
+            <p class="md:line-clamp-5 mb-8 xl:line-clamp-3"><span class="font-bold">Review: </span>${movie.overview}</p>
+            <a href="./details.html?id=${movie.id}" id="button" target="_blank" class="rounded-2xl border border-white border-solid px-2 absolute -bottom-2 -right-2 bg-[#FFFFFF] hover:bg-black hover:text-white text-[#6D38E0] font-bold">See more</a>
         </div>
     `
 }
+
+export let favCardContent = movie => {
+    return `
+        <img class="mb-4 md:max-h-[55%]" src="https://moviestack.onrender.com/static/${movie.image}" alt="${movie.title}" style="box-shadow: 1px 1px 3px white;" >
+        <div class="relative">
+            <button data-fav=${movie.id}">
+            <img src="../assets/filled-heart.png" class="absolute -top-4 right-0 w-10 h-10" data-fav="${movie.id}"/>
+            </button>
+            <h3><span class="font-bold">Title:</span> ${movie.title}</h3>
+            <h5 class="italic">${movie.tagline}</h5>
+            <hr class="my-4">
+            <p class="md:line-clamp-5 mb-8 xl:line-clamp-3"><span class="font-bold">Review: </span>${movie.overview}</p>
+            <a href="./details.html?id=${movie.id}" id="button" target="_blank" class="rounded-2xl border border-white border-solid px-2 absolute -bottom-2 -right-2 bg-[#FFFFFF] hover:bg-black hover:text-white text-[#6D38E0] font-bold">See more</a>
+        </div>
+    `
+}
+
+export let createFavCards = movies => movies.forEach(movie => {
+    let fragment = new DocumentFragment();
+    let divCard = document.createElement("div");
+    const cardContainer = document.querySelector(".card-container");
+    divCard.className = "card flex flex-col gap-3 border-solid border rounded-2xl shadow-[2px_2px_6px_#000000] shadow-[2px_2px_6px_#000000] hover:shadow-[0px_2px_10px_5px_#6D38E0] hover:border-none p-4 w-[90vw] justify-center bg-[#6D38E0] text-[#FFFFFF] md:w-[45vw] md:justify-between lg:w-[31vw] xl:w-[22vw]";
+    divCard.innerHTML = favCardContent(movie);
+    fragment.appendChild(divCard); // se usa el fragment y queda vacío.
+    cardContainer.appendChild(fragment);
+    return divCard;
+});
 
 export let createCards = movies => movies.forEach(movie => {
     let fragment = new DocumentFragment();

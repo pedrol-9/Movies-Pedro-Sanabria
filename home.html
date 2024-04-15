@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./Recursos Moviestack/Moviestack_favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/Moviestack_favicon.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
@@ -18,11 +18,11 @@
     <title>Home Moviestack</title>
 </head>
 
-<body class="flex flex-wrap">
-    <header class="grow-0 w-full flex flex-col items-center justify-between bg-[#6D38E0] lg:flex-row lg:justify-around">
+<body class="flex flex-wrap min-h-screen">
+    <header class="w-full flex flex-col items-center justify-between bg-[#6D38E0] lg:flex-row lg:justify-around">
         <div class="flex items-center m-4">
             <img class="w-[90px] h-[85px] rounded-[50%] object-cover bg-[#FFFFFF] mr-2"
-                src="./Recursos Moviestack/Moviestack_isotipo.png" alt="logotipo de moviestack">
+                src="./assets/Moviestack_isotipo.png" alt="logotipo de moviestack">
             <h1 class="font-extrabold text-[#FFFFFF] pr-2 text-4xl">MOVIESTACK</h1>
         </div>
         <nav
@@ -34,11 +34,11 @@
                 href="./movies.html">MOVIES
             </a>
             <a class="anchor w-[30%] bg-[#d2ccff] p-1 rounded font-extrabold lg:w-[20%] shadow-[2px_2px_4px_2px_#d2ccff] hover:shadow-[2px_2px_4px_2px_#000000]"
-                href="#">FAVS
+                href="./favorites.html">FAVS
             </a>
         </nav>
     </header>
-    <main class="grow bg-[#FFFFFF] md:flex md:flex-wrap md:justify-center">
+    <main class="grow grow min-h-[80vh] bg-[#FFFFFF] md:flex md:flex-wrap md:justify-center">
         <article class="flex flex-wrap md:flex md:flex-wrap md:justify-center justify-center">
             <img class="w-[70vw] h-[50vw] object-cover my-4 md:h-[30vw] md:w-[40vw] lg:h-[25vw] md:object-cover"
                 src="./Recursos Moviestack/Moviestack_isotipo.png" alt="banner de moviestack">
@@ -73,14 +73,14 @@
                     <img class="object-cover w-full" src="./Recursos Moviestack/Moviestack_logotipo1.png" alt="">
                 </a>
                 <a class="anchor text-center bg-[#d2ccff] w-[45%] rounded-md lg:w-[30vw] lg:h-[25vw] shadow-[2px_2px_4px_2px_#6D38E0] hover:shadow-[2px_2px_4px_2px_#000000]"
-                    href="#">
+                    href="./favorites.html">
                     <h3 class="pt-8 bottom-2 left-12 font-extrabold text-[#6D38E0]">GO TO FAVS!</h3>
                     <img class="object-cover w-full" src="./Recursos Moviestack/Moviestack_logotipo2.png" alt="">
                 </a>
             </div>
         </article>
     </main>
-    <footer class="grow-0 w-full text-center bg-[#6D38E0] text-[#FFFFFF] font-bold py-4 mt-8">
+    <footer class="w-full text-center bg-[#6D38E0] text-[#FFFFFF] font-bold py-4 mt-8">
         <p>MindHub - Cohort N° 54 - Pedro Sanabria
         </p>
     </footer>
