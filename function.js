@@ -19,7 +19,7 @@ export let favCardContent = movie => {
         <img class="mb-4 md:max-h-[55%]" src="https://moviestack.onrender.com/static/${movie.image}" alt="${movie.title}" style="box-shadow: 1px 1px 3px white;" >
         <div class="relative">
             <button data-fav=${movie.id}">
-            <img src="../assets/filled-heart.png" class="absolute -top-4 right-0 w-10 h-10" data-fav="${movie.id}"/>
+            <img src="../assets/filled-heart.png" class="heart absolute -top-4 right-0 w-10 h-10" data-fav="${movie.id}"/>
             </button>
             <h3><span class="font-bold">Title:</span> ${movie.title}</h3>
             <h5 class="italic">${movie.tagline}</h5>
@@ -130,3 +130,15 @@ export function crossedFilter(movies, inputText, inputSelect, container) {
     return crossedFilter;
 }
 
+export function retrieveHeart (movies, idMovies) {
+    movies.forEach(movie => {
+        if (idMovies.includes(movie.id)) {
+            // Obtener el corazón correspondiente a esta película
+            const heart = document.querySelector(`[data-fav="${movie.id}"]`);
+            if (heart) {
+                // Cambiar la imagen del corazón a lleno
+                heart.src = "../assets/filled-heart.png";
+            }
+        }
+    });
+}
